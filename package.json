@@ -1,0 +1,33 @@
+{
+  "name": "cachetools-js",
+  "version": "1.0.0",
+  "description": "Best, faster, ligther, all-in-one, fully-typed cache library for JS, based on cachetools from python, with events, pooling and decorators.",
+  "author": "vinikjkkj",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepack": "tsc",
+    "prepare": "tsc",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "jest",
+    "publish": "npm publish"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.1",
+    "@typescript-eslint/parser": "^8.0.1",
+    "eslint": "^9.8.0",
+    "globals": "^15.9.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.4",
+    "ts-node": "^10.8.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.0.1"
+  }
+}
