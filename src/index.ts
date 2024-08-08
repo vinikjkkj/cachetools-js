@@ -3,5 +3,8 @@ export * from './types'
 
 export {
     SizeError,
-    MissingSize
+    MissingSize,
+    AlreadyExists,
+    CacheNotExists,
+    CacheTypeNotExists
 } from './utils'

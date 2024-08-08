@@ -3,8 +3,9 @@ import { CacheLike, CachePoolParams, CachesObj, CacheTypes, Keyable, ParamsLike 
 
 /**
  * ### About
- * Pool of caches to store all your caches in a unique variable, making your code more cleaner and easier,
- * you can create/get/delete all types of caches, and use standard methods from caches more simplier
+ * Pool of caches to store all your caches in a single variable, making your code cleaner and easier to manage.
+ *
+ * You can create, get, and delete all types of caches, using standard cache methods more simply.
  *
  * ### Example
  * ```typescript

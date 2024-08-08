@@ -24,7 +24,7 @@ All of most used cache types are included here, if what you are looking for does
 //example cache
 import { TTLCache } from 'cachetools-js'
 
-const cache = TTLCache({ttl: 1000})
+const cache = new TTLCache({ttl: 1000})
 ```
 #### Store a key in cache
 ```typescript

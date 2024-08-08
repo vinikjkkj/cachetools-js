@@ -4,8 +4,9 @@ import { MissingSize } from '../utils'
 
 /**
  * ### About
- * This cache remove values based in **Random Logic**,
- * when cache is full, a random key will be removed based in random logic provided
+ * This cache removes values based on **Random Logic**.
+ *
+ * When the cache is full, a random key will be removed according to the provided random logic.
  *
  * ### Example
  * ```typescript

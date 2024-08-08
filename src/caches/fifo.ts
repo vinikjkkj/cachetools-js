@@ -4,8 +4,9 @@ import { MissingSize } from '../utils'
 
 /**
  * ### About
- * This cache remove values based in **FIFO (First In, First Out)**,
- * when cache is full, will remove the first key stored
+ * This cache remove values based in **FIFO (First In, First Out)**.
+ *
+ * When the cache is full, it will remove the first key that was stored.
  *
  * ### Example
  * ```typescript

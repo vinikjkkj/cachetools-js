@@ -4,8 +4,9 @@ import { MissingSize } from '../utils'
 
 /**
  * ### About
- * This cache remove values based in **LRU (Least Recently Used)**,
- * when cache is full, will remove the less recently used key
+ * This cache removes values based on **LRU (Least Recently Used)**.
+ *
+ * When the cache is full, it will remove the least recently used key.
  *
  * ### Example
  * ```typescript

@@ -4,8 +4,9 @@ import { SizeError } from '../utils'
 
 /**
  * ### About
- * This cache remove values based in TTL (Time-To-Live),
- * if you store a key with TTL of 1 second, in 1 second this key will be removed.
+ * This cache removes values based on TTL (Time-To-Live).
+ *
+ * If you store a key with a TTL of 1 second, that key will be removed after 1 second.
  *
  * ### Example
  * ```typescript
@@ -18,7 +19,7 @@ import { SizeError } from '../utils'
  *
  * //custom ttl will be used (500)
  * cache.set('bar', 'foo', 500)
- * 
+ *
  * //store another key
  * cache['baz'] = 'foo'
  * //throws SizeError, you need to delete some key to store another key

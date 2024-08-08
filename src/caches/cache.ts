@@ -3,9 +3,11 @@ import { CacheParams, Keyable } from '../types'
 
 /**
  * ### About
- * Simple cache base class, based in `Proxy` to turn possible to get/set keys like a common object,
- * use this class if you want to create a custom cache logic,
- * you can use for personal purpose too, but i dont know why
+ * Simple cache base class, based on `Proxy`, which allows getting and setting keys like a regular object.
+ *
+ * This class is useful if you want to create custom cache logic.
+ *
+ * It can also be used for personal purposes, although its specific application might not be obvious in all cases.
  *
  * ### Example
  * ```typescript
