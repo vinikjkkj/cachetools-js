@@ -13,7 +13,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "test": "jest",
-    "publish": "npm publish"
+    "publish": "npm run build && npm publish"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
