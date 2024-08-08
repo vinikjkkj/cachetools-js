@@ -1,6 +1,5 @@
 import { Cache } from './cache'
 import { TTLParams, Keyable } from '../types'
-import { SizeError } from '../utils'
 
 /**
  * ### About
