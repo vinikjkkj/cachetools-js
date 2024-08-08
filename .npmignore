@@ -3,6 +3,6 @@ dist
 tests
 src
 tsconfig.json
-jest.config.json
+jest.config.js
 eslint.config.js
 node_modules
