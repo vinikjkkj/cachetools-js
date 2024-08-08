@@ -1,7 +1,7 @@
 
 # CacheTools-Js
 
-Best, faster, ligther, all-in-one, fully-typed cache library for JS, based on (cachetools)[https://pypi.org/project/cachetools] from python, with events, pooling and decorators.
+Best, faster, ligther, all-in-one, fully-typed cache library for JS, based on [cachetools](https://pypi.org/project/cachetools) from python, with events, pooling and decorators.
 
 All of most used cache types are included here, if what you are looking for does not exist here, tell us.
 ## Installation
