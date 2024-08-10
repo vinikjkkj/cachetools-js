@@ -15,6 +15,10 @@ export class CacheEmitter {
     on<Event extends keyof CacheEvents>(event: Event, listener: CacheEvents[Event]) {
         return this._emitter.on(event, listener)
     }
+
+    off<Event extends keyof CacheEvents>(event: Event, listener: CacheEvents[Event]) {
+        return this._emitter.off(event, listener)
+    }
 }
 
 export class CachePoolEmitter {
@@ -30,5 +34,9 @@ export class CachePoolEmitter {
 
     on<Event extends keyof CachePoolEvents>(event: Event, listener: CachePoolEvents[Event]) {
         return this._emitter.on(event, listener)
+    }
+
+    off<Event extends keyof CachePoolEvents>(event: Event, listener: CachePoolEvents[Event]) {
+        return this._emitter.off(event, listener)
     }
 }
