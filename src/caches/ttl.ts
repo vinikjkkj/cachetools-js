@@ -35,7 +35,7 @@ export class TTLCache extends Cache {
     /**
     * Creates a new TTLCache.
     */
-    constructor(params: TTLParams){
+    constructor(params: TTLParams = {}){
         super({
             maxsize: params.maxsize,
             useClones: params.useClones

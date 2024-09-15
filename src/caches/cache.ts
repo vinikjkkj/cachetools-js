@@ -19,11 +19,6 @@ import { CacheParams, Keyable } from '../types'
  *
  * //get 'bar' key
  * cache['bar']
- *
- * //try to store another key
- * cache['baz'] = 'foo'
- * //throws SizeError, you need to delete some key to store another key
- *
  * ```
 */
 export class Cache extends CacheEmitter {
@@ -35,7 +30,7 @@ export class Cache extends CacheEmitter {
     /**
     * Creates a new Cache.
     */
-    constructor(params: CacheParams){
+    constructor(params: CacheParams = {}){
         super()
         this._cache = new Map()
         this._params = params
@@ -88,6 +83,10 @@ export class Cache extends CacheEmitter {
     del(key: Keyable){
         this.emit('del', key)
         this._cache.delete(key)
+    }
+
+    flushAll(){
+        this.delAll()
     }
 
     delAll(){

@@ -31,7 +31,7 @@ export class CachePool extends CachePoolEmitter {
 
     [key: string | symbol]: unknown
 
-    constructor(params: CachePoolParams){
+    constructor(params: CachePoolParams = {}){
         super()
         this._caches = new Map()
         this._params = params
