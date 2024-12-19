@@ -77,10 +77,14 @@ export class CachePool extends CachePoolEmitter {
 
     delCache(name: Keyable){
         this.emit('del-cache', name)
+        const cache = this._caches.get(name)
+        if (cache) cache.destroy()
+
         this._caches.delete(name)
     }
 
     delAllCaches(){
+        this._caches.forEach(v => v.destroy())
         this._caches.clear()
     }
 

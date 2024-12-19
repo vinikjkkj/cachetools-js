@@ -104,4 +104,8 @@ export class Cache extends CacheEmitter {
     length(){
         return this._cache.size
     }
+
+    destroy() {
+        this.delAll()
+    }
 }

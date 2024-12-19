@@ -8,6 +8,10 @@ describe('CachePool', () => {
         caches = new CachePool({maxsize: 10})
     })
 
+    afterEach(() => {
+        caches.delAllCaches()
+    })
+
     test('should create a cache and get it', () => {
         const cache = caches.createCache('c1', 'ttl', {ttl: 10})
 

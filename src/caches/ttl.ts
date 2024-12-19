@@ -69,6 +69,7 @@ export class TTLCache extends Cache {
 
     del(key: Keyable){
         super.del(key)
+        this.emit('expired', key)
         if (this._timeouts.has(key)) {
             this._timeouts.delete(key)
         }
@@ -77,10 +78,12 @@ export class TTLCache extends Cache {
     private _clearInterval() {
         if (this._intervalId) {
             clearInterval(this._intervalId)
+            this._intervalId = undefined
         }
     }
 
     destroy() {
+        super.destroy()
         this._clearInterval()
     }
 
@@ -89,7 +92,6 @@ export class TTLCache extends Cache {
         for (const [key, expirationTime] of this._timeouts.entries()) {
             if (expirationTime <= now) {
                 this.del(key)
-                this.emit('expired', key)
             }
         }
     }

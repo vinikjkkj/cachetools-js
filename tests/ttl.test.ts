@@ -4,8 +4,12 @@ describe('TTLCache', () => {
     let cache: TTLCache
 
     beforeEach(() => {
-        cache = new TTLCache({maxsize: 2})
+        cache = new TTLCache({maxsize: 2, checkPeriod: 15})
     })
+
+    afterEach(() => {
+        cache.destroy()
+    }, 10)
 
     test('should set and get value correctly', () => {
         cache.set('key', 'value')
@@ -28,11 +32,11 @@ describe('TTLCache', () => {
     })
 
     test('should expire keys after TTL', (done) => {
-        cache.set('key', 'value', 100)
+        cache.set('key', 'value', 20)
         setTimeout(() => {
             expect(cache.get('key')).toBeUndefined()
             done()
-        }, 150)
+        }, 20)
     })
 
     test('should throw SizeError when exceeding maxsize', () => {
@@ -72,7 +76,8 @@ describe('TTLCache', () => {
         expect(cache.values().length).toBe(cache.length())
     })
 
-    test('should emit events correctly', () => {
+    test('should emit events correctly', (done) => {
+        //jest.useFakeTimers();
         //set event
         const setMock = jest.fn()
         cache.on('set', setMock)
@@ -94,10 +99,11 @@ describe('TTLCache', () => {
         //expired event
         const expireMock = jest.fn()
         cache.on('expired', expireMock)
-
         cache.set('key1', 'value', 100)
+
         setTimeout(() => {
             expect(expireMock).toHaveBeenCalledTimes(1)
-        }, 200)
-    })
+            done()
+        }, 150)
+    }, 10000)
 })
