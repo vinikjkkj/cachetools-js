@@ -29,8 +29,10 @@ import { TTLParams, Keyable } from '../types'
  * ```
  */
 export class TTLCache extends Cache {
-    protected _timeouts: Map<Keyable, NodeJS.Timeout>
+    protected _timeouts: Map<Keyable, number>
     protected _defaultTTL?: number
+    protected _checkInterval?: number
+    private _intervalId?: NodeJS.Timeout
 
     /**
     * Creates a new TTLCache.
@@ -42,32 +44,25 @@ export class TTLCache extends Cache {
         })
 
         this._timeouts = new Map()
+        this._checkInterval = params.checkPeriod ?? 60000
         if (params.ttl) {
             this._defaultTTL = params.ttl
         }
+
+        setInterval(() => this._checkExpired(), this._checkInterval)
     }
 
     set(key: Keyable, value: unknown, ttl = 0){
         super.set(key, value)
 
         if (this._timeouts.has(key)) {
-            clearTimeout(
-                this._timeouts.get(key)
-            )
-
             this._timeouts.delete(key)
         }
 
         if (ttl || this._defaultTTL){
             this._timeouts.set(
                 key,
-                setTimeout(
-                    () => {
-                        this.del(key)
-                        this.emit('expired', key)
-                    },
-                    ttl || this._defaultTTL
-                )
+                Date.now() + (ttl ?? this._defaultTTL)
             )
         }
     }
@@ -75,10 +70,27 @@ export class TTLCache extends Cache {
     del(key: Keyable){
         super.del(key)
         if (this._timeouts.has(key)) {
-            clearTimeout(
-                this._timeouts.get(key)
-            )
             this._timeouts.delete(key)
+        }
+    }
+
+    private _clearInterval() {
+        if (this._intervalId) {
+            clearInterval(this._intervalId)
+        }
+    }
+
+    destroy() {
+        this._clearInterval()
+    }
+
+    private _checkExpired() {
+        const now = Date.now()
+        for (const [key, expirationTime] of this._timeouts.entries()) {
+            if (expirationTime <= now) {
+                this.del(key)
+                this.emit('expired', key)
+            }
         }
     }
 }

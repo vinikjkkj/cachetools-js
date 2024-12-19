@@ -19,6 +19,12 @@ export interface TTLParams extends CacheParams {
      * If not provided, the cache will not delete keys.
      */
     ttl?: number
+
+    /**
+     * The **Check Period** to verify if key is expired or not.
+     * **default:** 60000 - 1 minute
+     */
+    checkPeriod?: number
 }
 
 export interface RRParams extends CacheParams {
