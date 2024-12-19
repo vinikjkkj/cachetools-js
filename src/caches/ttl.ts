@@ -49,7 +49,7 @@ export class TTLCache extends Cache {
             this._defaultTTL = params.ttl
         }
 
-        setInterval(() => this._checkExpired(), this._checkInterval)
+        this._intervalId = setInterval(() => this._checkExpired(), this._checkInterval)
     }
 
     set(key: Keyable, value: unknown, ttl = 0){
