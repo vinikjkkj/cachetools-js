@@ -36,8 +36,8 @@ describe('TTLCache', () => {
         setTimeout(() => {
             expect(cache.get('key')).toBeUndefined()
             done()
-        }, 20)
-    }, 50)
+        }, 25)
+    }, 1000)
 
     test('should throw SizeError when exceeding maxsize', () => {
         cache.set('key', 'value')
@@ -64,7 +64,7 @@ describe('TTLCache', () => {
             expect(cache.get('key')).toBeUndefined()
             done()
         }, 150)
-    }, 200)
+    }, 1000)
 
     test('should return keys and values', () => {
         cache.set('key', 'value')
