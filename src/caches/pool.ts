@@ -1,5 +1,5 @@
-import { AlreadyExists, CacheNotExists, CachePoolEmitter, CacheTypeNotExists, SizeError } from '../utils'
 import { CacheLike, CachePoolParams, CachesObj, CacheTypes, Keyable, ParamsLike } from '../types'
+import { AlreadyExists, CacheNotExists, CachePoolEmitter, CacheTypeNotExists, SizeError } from '../utils'
 
 /**
  * ### About
@@ -31,13 +31,13 @@ export class CachePool extends CachePoolEmitter {
 
     [key: string | symbol]: unknown
 
-    constructor(params: CachePoolParams = {}){
+    constructor(params: CachePoolParams = {}) {
         super()
         this._caches = new Map()
         this._params = params
     }
 
-    protected _getCache(cacheName: Keyable){
+    protected _getCache(cacheName: Keyable) {
         const cache = this._caches.get(cacheName)
 
         if (!cache) {
@@ -47,7 +47,7 @@ export class CachePool extends CachePoolEmitter {
         return cache
     }
 
-    createCache(name: Keyable, type: CacheTypes, params?: ParamsLike){
+    createCache(name: Keyable, type: CacheTypes, params?: ParamsLike) {
         if (!CachesObj[type]) {
             throw new CacheTypeNotExists()
         }
@@ -70,12 +70,12 @@ export class CachePool extends CachePoolEmitter {
         return cache
     }
 
-    getCache(name: Keyable){
+    getCache(name: Keyable) {
         this.emit('get-cache', name)
         return this._caches.get(name)
     }
 
-    delCache(name: Keyable){
+    delCache(name: Keyable) {
         this.emit('del-cache', name)
         const cache = this._caches.get(name)
         if (cache) cache.destroy()
@@ -83,32 +83,32 @@ export class CachePool extends CachePoolEmitter {
         this._caches.delete(name)
     }
 
-    delAllCaches(){
+    delAllCaches() {
         this._caches.forEach(v => v.destroy())
         this._caches.clear()
     }
 
-    get(cacheName: Keyable, key: Keyable){
+    get(cacheName: Keyable, key: Keyable) {
         const cache = this._getCache(cacheName)
         return cache.get(key)
     }
 
-    set(cacheName: Keyable, key: Keyable, value: unknown){
+    set(cacheName: Keyable, key: Keyable, value: unknown) {
         const cache = this._getCache(cacheName)
         cache.set(key, value)
     }
 
-    del(cacheName: Keyable, key: Keyable){
+    del(cacheName: Keyable, key: Keyable) {
         const cache = this._getCache(cacheName)
         cache.del(key)
     }
 
-    delAll(cacheName: Keyable){
+    delAll(cacheName: Keyable) {
         const cache = this._getCache(cacheName)
         cache.delAll()
     }
 
-    length(){
+    length() {
         return this._caches.size
     }
 }

@@ -77,7 +77,6 @@ describe('TTLCache', () => {
     })
 
     test('should emit events correctly', (done) => {
-        //jest.useFakeTimers();
         //set event
         const setMock = jest.fn()
         cache.on('set', setMock)

@@ -1,6 +1,7 @@
 import { CacheParams, Keyable } from '../types'
-import { Cache } from './cache'
 import { MissingSize } from '../utils'
+
+import { Cache } from './cache'
 
 /**
  * ### About
@@ -31,8 +32,8 @@ export class LFUCache extends Cache {
     /**
     * Creates a new LFUCache.
     */
-    constructor(params: CacheParams){
-        if (!params.maxsize){
+    constructor(params: CacheParams) {
+        if (!params.maxsize) {
             throw new MissingSize()
         }
 
@@ -44,7 +45,7 @@ export class LFUCache extends Cache {
         this._uses = {}
     }
 
-    get(key: Keyable){
+    get(key: Keyable) {
         const value = super.get(key)
 
         if (value) {
@@ -54,8 +55,8 @@ export class LFUCache extends Cache {
         return value
     }
 
-    set(key: Keyable, value: unknown){
-        if (this.length() === this._params.maxsize){
+    set(key: Keyable, value: unknown) {
+        if (this.length() === this._params.maxsize) {
             const keys = Object.entries(this._uses)
             const toDelNumber = Math.min(...keys.map(v => v[1]))
             const toDel = keys.find(v => v[1] === toDelNumber)?.[0] as Keyable

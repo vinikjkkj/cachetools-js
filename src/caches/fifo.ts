@@ -1,6 +1,7 @@
 import { CacheParams, Keyable } from '../types'
-import { Cache } from './cache'
 import { MissingSize } from '../utils'
+
+import { Cache } from './cache'
 
 /**
  * ### About
@@ -29,8 +30,8 @@ export class FIFOCache extends Cache {
     /**
     * Creates a new FIFOCache.
     */
-    constructor(params: CacheParams){
-        if (!params.maxsize){
+    constructor(params: CacheParams) {
+        if (!params.maxsize) {
             throw new MissingSize()
         }
 
@@ -40,9 +41,9 @@ export class FIFOCache extends Cache {
         })
     }
 
-    set(key: Keyable, value: unknown){
-        if (this.length() === this._params.maxsize){
-            const toDel = this._cache.keys().next().value
+    set(key: Keyable, value: unknown) {
+        if (this.length() === this._params.maxsize) {
+            const toDel = this._cache.keys().next().value!
 
             this.del(toDel)
             this.emit('expired', toDel)

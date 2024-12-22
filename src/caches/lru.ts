@@ -1,6 +1,7 @@
 import { CacheParams, Keyable } from '../types'
-import { Cache } from './cache'
 import { MissingSize } from '../utils'
+
+import { Cache } from './cache'
 
 /**
  * ### About
@@ -29,8 +30,8 @@ export class LRUCache extends Cache {
     /**
     * Creates a new LRUCache.
     */
-    constructor(params: CacheParams){
-        if (!params.maxsize){
+    constructor(params: CacheParams) {
+        if (!params.maxsize) {
             throw new MissingSize()
         }
 
@@ -40,7 +41,7 @@ export class LRUCache extends Cache {
         })
     }
 
-    get(key: Keyable){
+    get(key: Keyable) {
         const value = super.get(key)
 
         if (value) {
@@ -51,9 +52,9 @@ export class LRUCache extends Cache {
         return value
     }
 
-    set(key: Keyable, value: unknown){
-        if (this.length() === this._params.maxsize){
-            const toDel = this._cache.keys().next().value
+    set(key: Keyable, value: unknown) {
+        if (this.length() === this._params.maxsize) {
+            const toDel = this._cache.keys().next().value!
 
             this._cache.delete(toDel)
             this.emit('expired', toDel)

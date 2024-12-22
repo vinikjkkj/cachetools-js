@@ -1,10 +1,11 @@
 import EventEmitter from 'events'
+
 import { CacheEvents, CachePoolEvents } from '../types'
 
 export class CacheEmitter {
     protected _emitter
 
-    constructor(){
+    constructor() {
         this._emitter = new EventEmitter()
     }
 
@@ -24,7 +25,7 @@ export class CacheEmitter {
 export class CachePoolEmitter {
     protected _emitter
 
-    constructor(){
+    constructor() {
         this._emitter = new EventEmitter()
     }
 

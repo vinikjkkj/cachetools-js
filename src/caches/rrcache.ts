@@ -1,6 +1,7 @@
 import { Keyable, RRParams } from '../types'
-import { Cache } from './cache'
 import { MissingSize } from '../utils'
+
+import { Cache } from './cache'
 
 /**
  * ### About
@@ -28,7 +29,7 @@ export class RRCache extends Cache {
     /**
     * Creates a new RRCache.
     */
-    constructor(params: RRParams){
+    constructor(params: RRParams) {
         if (!params.maxsize) {
             throw new MissingSize()
         }
@@ -42,8 +43,8 @@ export class RRCache extends Cache {
             ((length) => Math.floor(Math.random() * length))
     }
 
-    set(key: Keyable, value: unknown){
-        if (this.length() === this._params.maxsize){
+    set(key: Keyable, value: unknown) {
+        if (this.length() === this._params.maxsize) {
             const keys = this._cache.keys()
             const toDel = Array.from(keys)[this._logic(this.length())]
 

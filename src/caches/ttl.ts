@@ -1,5 +1,6 @@
-import { Cache } from './cache'
 import { TTLParams, Keyable } from '../types'
+
+import { Cache } from './cache'
 
 /**
  * ### About
@@ -37,7 +38,7 @@ export class TTLCache extends Cache {
     /**
     * Creates a new TTLCache.
     */
-    constructor(params: TTLParams = {}){
+    constructor(params: TTLParams = {}) {
         super({
             maxsize: params.maxsize,
             useClones: params.useClones
@@ -52,14 +53,14 @@ export class TTLCache extends Cache {
         this._intervalId = setInterval(() => this._checkExpired(), this._checkInterval)
     }
 
-    set(key: Keyable, value: unknown, ttl = 0){
+    set(key: Keyable, value: unknown, ttl = 0) {
         super.set(key, value)
 
         if (this._timeouts.has(key)) {
             this._timeouts.delete(key)
         }
 
-        if (ttl || this._defaultTTL){
+        if (ttl || this._defaultTTL) {
             this._timeouts.set(
                 key,
                 Date.now() + (ttl ?? this._defaultTTL)
@@ -67,7 +68,7 @@ export class TTLCache extends Cache {
         }
     }
 
-    del(key: Keyable){
+    del(key: Keyable) {
         super.del(key)
         this.emit('expired', key)
         if (this._timeouts.has(key)) {

@@ -1,5 +1,5 @@
-import { CacheEmitter, SizeError } from '../utils'
 import { CacheParams, Keyable } from '../types'
+import { CacheEmitter, SizeError } from '../utils'
 
 /**
  * ### About
@@ -30,7 +30,7 @@ export class Cache extends CacheEmitter {
     /**
     * Creates a new Cache.
     */
-    constructor(params: CacheParams = {}){
+    constructor(params: CacheParams = {}) {
         super()
         this._cache = new Map()
         this._params = params
@@ -52,20 +52,20 @@ export class Cache extends CacheEmitter {
 
                 return true
             }
-        });
+        })
     }
 
-    get(key: Keyable){
+    get(key: Keyable) {
         this.emit('get', key)
         return this._cache.get(key)
     }
 
-    set(key: Keyable, value: unknown){
+    set(key: Keyable, value: unknown) {
         this.emit('set', { key, value })
         if (
             this._params.maxsize &&
             this.length() === this._params.maxsize
-        ){
+        ) {
             throw new SizeError()
         }
         this._cache.set(key, this._params.useClones ?
@@ -74,34 +74,34 @@ export class Cache extends CacheEmitter {
         )
     }
 
-    take(key: Keyable){
+    take(key: Keyable) {
         const value = this.get(key)
         this.del(key)
         return value
     }
 
-    del(key: Keyable){
+    del(key: Keyable) {
         this.emit('del', key)
         this._cache.delete(key)
     }
 
-    flushAll(){
+    flushAll() {
         this.delAll()
     }
 
-    delAll(){
+    delAll() {
         this._cache.clear()
     }
 
-    keys(){
+    keys() {
         return Array.from(this._cache.keys())
     }
 
-    values(){
+    values() {
         return Array.from(this._cache.values())
     }
 
-    length(){
+    length() {
         return this._cache.size
     }
 
