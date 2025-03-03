@@ -21,8 +21,6 @@ import { AlreadyExists, CacheNotExists, CachePoolEmitter, CacheTypeNotExists, Si
  *
  * //get keys in caches
  * cache['baz'] = 'foo'
- * //throws SizeError, you need to delete some key to store another key
- *
  * ```
 */
 export class CachePool extends CachePoolEmitter {

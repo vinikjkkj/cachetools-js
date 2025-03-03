@@ -45,9 +45,14 @@ export class TTLCache extends Cache {
         })
 
         this._timeouts = new Map()
-        this._checkInterval = params.checkPeriod ?? 60000
         if (params.ttl) {
             this._defaultTTL = params.ttl
+
+            //When user not give checkPeriod param, it defaults to ttl
+            //If ttl is smaller than 1 minute, checkePeriod will be tll, if not passed in params
+            this._checkInterval = params.checkPeriod ?? (params.ttl < 60000 ? params.ttl : 60000)
+        } else {
+            this._checkInterval = params.checkPeriod ?? 60000
         }
 
         this._intervalId = setInterval(() => this._checkExpired(), this._checkInterval)
