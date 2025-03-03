@@ -1,6 +1,6 @@
 {
   "name": "cachetools-js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Best, faster, ligther, all-in-one, fully-typed cache library for JS, based on cachetools from python, with events, pooling and decorators.",
   "author": "vinikjkkj",
   "license": "MIT",
