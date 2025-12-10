@@ -36,8 +36,8 @@ export class TTLCache extends Cache {
     private _intervalId?: NodeJS.Timeout
 
     /**
-    * Creates a new TTLCache.
-    */
+     * Creates a new TTLCache.
+     */
     constructor(params: TTLParams = {}) {
         super({
             maxsize: params.maxsize,
@@ -58,24 +58,21 @@ export class TTLCache extends Cache {
         this._intervalId = setInterval(() => this._checkExpired(), this._checkInterval)
     }
 
-    set(key: Keyable, value: unknown, ttl = 0) {
+    set(key: Keyable, value: unknown, ttl?: number) {
         super.set(key, value)
 
         if (this._timeouts.has(key)) {
             this._timeouts.delete(key)
         }
 
-        if (ttl || this._defaultTTL) {
-            this._timeouts.set(
-                key,
-                Date.now() + (ttl ?? this._defaultTTL)
-            )
+        const effectiveTTL = ttl ?? this._defaultTTL
+        if (effectiveTTL && effectiveTTL > 0) {
+            this._timeouts.set(key, Date.now() + effectiveTTL)
         }
     }
 
     del(key: Keyable) {
         super.del(key)
-        this.emit('expired', key)
         if (this._timeouts.has(key)) {
             this._timeouts.delete(key)
         }

@@ -20,16 +20,16 @@ import { CacheEmitter, SizeError } from '../utils'
  * //get 'bar' key
  * cache['bar']
  * ```
-*/
+ */
 export class Cache extends CacheEmitter {
     protected _cache: Map<Keyable, unknown>
-    protected _params: CacheParams
+    protected _params: CacheParams;
 
     [key: string | symbol]: unknown
 
     /**
-    * Creates a new Cache.
-    */
+     * Creates a new Cache.
+     */
     constructor(params: CacheParams = {}) {
         super()
         this._cache = new Map()
@@ -37,7 +37,7 @@ export class Cache extends CacheEmitter {
 
         return new Proxy(this, {
             get: (target, key) => {
-                if ((target as any)[key]) {
+                if (key in target) {
                     return (target as any)[key]
                 } else {
                     return target.get(key)
@@ -45,7 +45,7 @@ export class Cache extends CacheEmitter {
             },
             set: (target, key, value) => {
                 if (typeof key === 'string' && key.startsWith('_')) {
-                    (target as any)[key] = value
+                    ;(target as any)[key] = value
                 } else {
                     target.set(key, value)
                 }
@@ -64,14 +64,12 @@ export class Cache extends CacheEmitter {
         this.emit('set', { key, value })
         if (
             this._params.maxsize &&
+            !this._cache.has(key) &&
             this.length() === this._params.maxsize
         ) {
             throw new SizeError()
         }
-        this._cache.set(key, this._params.useClones ?
-            structuredClone(value) :
-            value
-        )
+        this._cache.set(key, this._params.useClones ? structuredClone(value) : value)
     }
 
     take(key: Keyable) {
